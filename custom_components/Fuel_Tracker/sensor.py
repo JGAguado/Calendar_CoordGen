@@ -26,7 +26,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required("b0"): cv.string,
         vol.Required("a1"): cv.string,
         vol.Required("b1"): cv.string,
-
+        vol.Required(CONF_NAME): cv.string,
     }
 )
 

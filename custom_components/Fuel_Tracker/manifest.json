@@ -1,0 +1,11 @@
+{
+    "domain": "calendar_cg",
+    "name": "Calendar Coordinates Generator",
+    "documentation": "https://github.com/SpaceDIY/Calendar_CoordGen",
+    "issue_tracker": "https://github.com/SpaceDIY/Calendar_CoordGen/issues",
+    "dependencies": [],
+    "codeowners": ["@JGAguado"],
+    "requirements": [],
+    "iot_class": "cloud_polling",
+    "version": "1.0"
+}

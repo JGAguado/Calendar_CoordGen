@@ -61,10 +61,24 @@ class MonthSensor(Entity):
         return "{}".format(self.data.name)
 
     @property
+    def state(self):
+        """Return the state of the device."""
+        return self.data.attr
+
+    @property
     def device_state_attributes(self):
         """Return the state attributes."""
         return self.data.attr
 
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement."""
+        return "N/A"
+        
+    @property
+    def icon(self):
+        return "mdi-calendar-month"
+    
     def update(self):
         self.data.get_month()
 

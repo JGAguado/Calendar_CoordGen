@@ -63,7 +63,7 @@ class MonthSensor(Entity):
     @property
     def state(self):
         """Return the state of the device."""
-        return self.data.attr
+        return True
 
     @property
     def device_state_attributes(self):

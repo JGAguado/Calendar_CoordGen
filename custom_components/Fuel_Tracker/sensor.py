@@ -94,8 +94,7 @@ class MonthData:
 
     def get_month(self):
         calendar = {}
-        if month is None:
-            month = datetime.date.today().month
+        month = datetime.date.today().month
         year = datetime.date.today().year
         row = 0
         for day in range(1, 32):

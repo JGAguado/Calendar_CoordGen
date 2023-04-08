@@ -70,10 +70,6 @@ class MonthSensor(Entity):
         """Return the state attributes."""
         return self.data.attr
 
-    @property
-    def unit_of_measurement(self):
-        """Return the unit of measurement."""
-        return "N/A"
         
     @property
     def icon(self):
@@ -96,19 +92,21 @@ class MonthData:
         calendar = {}
         month = datetime.date.today().month
         year = datetime.date.today().year
+        next_month = month + 1
+        next_year = year
+        if next_month >12:
+            next_month = 1
+            next_year += 1
+        ax, bx, ay, by = 10, 200, 15, 150
         row = 0
-        for day in range(1, 32):
-            try:
-                date = datetime.date(year, month, day)
-                day_of_week = date.weekday()
-                calendar[day] = [day_of_week*self.x[0] + self.x[1], row*self.y[0] + self.y[1]]
-                if day_of_week > 5:
-                    row += 1
-            except ValueError:
-                break
+        days_in_month = (datetime.date(next_year, next_month, 1) - datetime.date(year, month, 1)).days
+        # print(days_in_month)
+        for day in range(1, days_in_month + 1):
+            date = datetime.date(year, month, day)
+            day_of_week = date.weekday()
+            calendar[day] = [day_of_week*ax + bx, row*ay + by]
+            if day_of_week > 5:
+                row += 1
 
-        attributes = {}
-        attributes['mac'] = 'some data'
-        attributes['sn'] = 'some other data'
-        self.attr = attributes
+        self.attr['days'] = calendar
         

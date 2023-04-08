@@ -107,5 +107,8 @@ class MonthData:
             except ValueError:
                 break
 
-        self.attr = calendar
+        attributes = {}
+        attributes['mac'] = 'some data'
+        attributes['sn'] = 'some other data'
+        self.attr = attributes
         

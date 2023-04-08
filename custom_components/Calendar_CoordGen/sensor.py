@@ -56,11 +56,6 @@ class MonthSensor(Entity):
         self.data = fn
 
     @property
-    def name(self):
-        """Return the name of the sensor."""
-        return "{}".format(self.data.name)
-
-    @property
     def state(self):
         """Return the state of the device."""
         return True
@@ -69,11 +64,6 @@ class MonthSensor(Entity):
     def device_state_attributes(self):
         """Return the state attributes."""
         return self.data.attr
-
-        
-    @property
-    def icon(self):
-        return "mdi-calendar-month"
     
     def update(self):
         self.data.get_month()
@@ -108,5 +98,5 @@ class MonthData:
             if day_of_week > 5:
                 row += 1
 
-        self.attr['days'] = calendar
+        self.attr = calendar
         

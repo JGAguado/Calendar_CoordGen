@@ -22,10 +22,10 @@ DOMAIN = "sensor"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
-        vol.Required("a0"): cv.string,
-        vol.Required("b0"): cv.string,
-        vol.Required("a1"): cv.string,
-        vol.Required("b1"): cv.string,
+        vol.Required("ax"): cv.string,
+        vol.Required("bx"): cv.string,
+        vol.Required("ay"): cv.string,
+        vol.Required("by"): cv.string,
         vol.Required(CONF_NAME): cv.string,
     }
 )
@@ -36,12 +36,12 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
     _LOGGER.info("init sensor")
     name = config.get(CONF_NAME)
-    a0 = config.get("a0")
-    b0 = config.get("b0")
-    a1 = config.get("a1")
-    b1 = config.get("b1")
+    ax = config.get("ax")
+    bx = config.get("bx")
+    ay = config.get("ay")
+    by = config.get("by")
 
-    fn = MonthData(name, a0, b0, a1, b1)
+    fn = MonthData(name, ax, bx, ay, by)
 
     if not fn:
         _LOGGER.error("Unable to create the Calendar sensor")
@@ -80,11 +80,10 @@ class MonthSensor(Entity):
 
 
 class MonthData:
-    def __init__(self, name, a0, b0, a1, b1):
+    def __init__(self, name, ax, bx, ay, by):
         self.name = name
         self.attr = {}
-        self.x = [a0, b0]
-        self.y = [a1, b1]
+        self.coeffs = [int(ax), int(bx), int(ay), int(by)]
         
         self.get_month()
 
@@ -97,7 +96,7 @@ class MonthData:
         if next_month >12:
             next_month = 1
             next_year += 1
-        ax, bx, ay, by = 10, 200, 15, 150
+        [ax, bx, ay, by] = self.coeffs
         row = 0
         days_in_month = (datetime.date(next_year, next_month, 1) - datetime.date(year, month, 1)).days
         # print(days_in_month)
